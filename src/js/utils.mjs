@@ -22,18 +22,34 @@ export function setClick(selector, callback) {
   qs(selector).addEventListener("click", callback);
 }
 
-
+/**
+ * Recupera un parámetro de la URL (ej. ?product=123 → getParam("product") devuelve "123")
+ */
 export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   return urlParams.get(param);
 }
 
-export function renderListWithTemplate(template, parentElement, list, position = "afterbegin", clear = false) {
-  const htmlStrings = list.map(template);
-  // if clear is true we need to clear out the contents of the parent.
+/**
+ * Renderiza una lista en el DOM usando una función plantilla
+ * @param {Function} templateFn - Función que devuelve un string HTML para un item
+ * @param {HTMLElement} parentElement - Elemento del DOM donde insertar
+ * @param {Array} list - Array de items a renderizar
+ * @param {string} position - Dónde insertar HTML ("afterbegin", "beforeend", etc.)
+ * @param {boolean} clear - Si true, limpia parentElement antes de insertar
+ */
+export function renderListWithTemplate(
+  templateFn,
+  parentElement,
+  list,
+  position = "afterbegin",
+  clear = false
+) {
   if (clear) {
-    parentElement.innerHTML = "";
+    parentElement.innerHTML = ""; // limpia contenido si se pide
   }
-  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+
+  const htmlStrings = list.map(templateFn).join("");
+  parentElement.insertAdjacentHTML(position, htmlStrings);
 }
