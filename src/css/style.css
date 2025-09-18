@@ -285,6 +285,7 @@ footer {
   color: #fff; /* text color */
   padding: 10px 0;
   position: relative;
+  margin-bottom: 20px;
 }
 
 /* Style for the inner scrolling text */
@@ -305,9 +306,11 @@ footer {
 /* Animation keyframes */
 @keyframes scroll-left {
   0% {
-    transform: translateX(100%);
+    /* Modifed to 200% for a smooth and natural animation */
+    transform: translateX(200%);
   }
   100% {
     transform: translateX(-100%);
   }
 }
+
