@@ -69,14 +69,14 @@ export async function loadTemplate(path){
 export async function loadHeaderFooter() {
   try {
     // Load header template
-    const headerTemplate = await loadTemplate("../partials/header.html");
+    const headerTemplate = await loadTemplate("/partials/header.html");
     const headerElement = document.querySelector("#main-header");
     if (headerElement) {
       renderWithTemplate(headerTemplate, headerElement);
     }
 
     // Load footer template
-    const footerTemplate = await loadTemplate("../partials/footer.html");
+    const footerTemplate = await loadTemplate("/partials/footer.html");
     const footerElement = document.querySelector("#main-footer");
     if (footerElement) {
       renderWithTemplate(footerTemplate, footerElement);
