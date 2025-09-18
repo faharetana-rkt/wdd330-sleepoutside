@@ -45,6 +45,47 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
   parentElement.insertAdjacentHTML(position, templateArray.join(""));
 }
 
+export function renderWithTemplate(template, parentElement, data, callback) {
+  parentElement.innerHTML = template;
+  if(callback) {
+    callback(data);
+  }
+}
+
+export async function loadTemplate(path){
+    try{
+      const response = await fetch(path);
+      if(!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const template = await response.text();
+        return template;
+    
+  } catch(error) {
+    console.error('Error loading template:', error);
+  }
+}
+
+export async function loadHeaderFooter() {
+  try {
+    // Load header template
+    const headerTemplate = await loadTemplate("../partials/header.html");
+    const headerElement = document.querySelector("#main-header");
+    if (headerElement) {
+      renderWithTemplate(headerTemplate, headerElement);
+    }
+
+    // Load footer template
+    const footerTemplate = await loadTemplate("../partials/footer.html");
+    const footerElement = document.querySelector("#main-footer");
+    if (footerElement) {
+      renderWithTemplate(footerTemplate, footerElement);
+    }
+  } catch (error) {
+    console.error("Error loading header or footer:", error);
+  }
+}
+
 // This is the function to render the superscript number of items in the backpack icon
 export function renderNumberOfItemsBackpack(element, key) {
   // Get the array from localstorage, if the there's no array, instantiate an empty array
