@@ -52,3 +52,35 @@ export function renderNumberOfItemsBackpack(element, key) {
   // Display the length of the array inside the chose element
   element.innerHTML = productArray.length;
 }
+
+function renderWithTemplate(template, parentElement, data, parent, callback) {
+  parentElement.innerHTML = template;
+  if(callback) {
+    callback(data, parent);
+  }
+}
+
+async function loadTemplate(path) {
+  try {
+    const response = await fetch(path);
+
+    if (!response.ok) {
+      console.error(`HTTP error: ${response.status}`)
+    }
+    const template = await response.text();
+    return template;
+  } catch (error) {
+    console.error(`Something didn't run as expected: ${error}`);
+  }
+}
+
+export function loadHeaderFooter() {
+  const templateHeader = loadTemplate("../partials/header.html");
+  const templateFooter = loadTemplate("../partials/footer.html");
+  const header = document.querySelector("#header");
+  const foooter = document.querySelector("#footer");
+  renderWithTemplate(templateHeader, header, document.querySelector("#cart-numbers"), "so-cart", renderNumberOfItemsBackpack);
+  renderWithTemplate(templateFooter, foooter);
+}
+
+
