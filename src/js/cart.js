@@ -1,53 +1,20 @@
-import { getLocalStorage, renderNumberOfItemsBackpack } from "./utils.mjs";
+import { loadHeaderFooter, renderNumberOfItemsBackpack } from "./utils.mjs";
+import ShoppingCart from "./ShoppingCart.mjs";
+import { getCartTotal } from "./ShoppingCart.mjs";
 
-function renderCartContents() {
-  // adding a check to see if the cart is empty
-  const cartItems = getLocalStorage("so-cart");
-  if (cartItems === null) {
-    document.querySelector(".product-list").textContent = "Your cart is empty!";
-  } else {
-    const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-    document.querySelector(".product-list").innerHTML = htmlItems.join("");
-  }
-}
+document.addEventListener("DOMContentLoaded", async () => {
+  await loadHeaderFooter();
 
-function cartItemTemplate(item) {
-  const newItem = `<li class="cart-card divider">
-  <a href="#" class="cart-card__image">
-    <img
-      src="${item.Image}"
-      alt="${item.Name}"
-      onerror="this.onerror=null; this.src='../images/tents/tent.webp'";
-    />
-  </a>
-  <a href="#">
-    <h2 class="card__name">${item.Name}</h2>
-  </a>
-  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
-  <p class="cart-card__price">$${item.FinalPrice}</p>
-</li>`;
+  const listElement = document.querySelector(".product-list");
+  const totalElement = document.querySelector(".cart-total");
+  const footerElement = document.querySelector(".cart-footer");
 
-  return newItem;
-}
+  const cart = new ShoppingCart("so-cart", listElement, totalElement, footerElement);
+  cart.init();
 
-function getCartTotal(cartItems) {
-  const totalHTML = document.querySelector(".cart-total");
-  const hide = document.querySelector(".hide");
-  let cart = JSON.parse(localStorage.getItem(cartItems)) || [];
-  if (cart.length != 0) {
-    hide.classList.remove("hide");
-  }
-  let total = 0;
-  for (let i = 0; i < cart.length; i++) {
-    total += cart[i].FinalPrice;
-  }
-  totalHTML.innerHTML = "Total: $" + total;
-}
+  // function to render the number of items in the backpack
+  renderNumberOfItemsBackpack(document.querySelector("#cart-numbers"), "so-cart");
 
-renderCartContents();
-
-getCartTotal("so-cart");
-
-// function to render the superscript number of items in backpack
-renderNumberOfItemsBackpack(document.querySelector("#cart-numbers"), "so-cart");
+  // render total
+  getCartTotal("so-cart");
+});

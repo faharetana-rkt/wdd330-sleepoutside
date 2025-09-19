@@ -53,37 +53,6 @@ export function renderNumberOfItemsBackpack(element, key) {
   element.innerHTML = productArray.length;
 }
 
-
-function renderWithTemplate(template, parentElement, data, parent, callback) {
-  parentElement.innerHTML = template;
-  if(callback) {
-    callback(data, parent);
-  }
-}
-
-async function loadTemplate(path) {
-  try {
-    const response = await fetch(path);
-
-    if (!response.ok) {
-      console.error(`HTTP error: ${response.status}`)
-    }
-    const template = await response.text();
-    return template;
-  } catch (error) {
-    console.error(`Something didn't run as expected: ${error}`);
-  }
-}
-
-export function loadHeaderFooter() {
-  const templateHeader = loadTemplate("../partials/header.html");
-  const templateFooter = loadTemplate("../partials/footer.html");
-  const header = document.querySelector("#header");
-  const foooter = document.querySelector("#footer");
-  renderWithTemplate(templateHeader, header, document.querySelector("#cart-numbers"), "so-cart", renderNumberOfItemsBackpack);
-  renderWithTemplate(templateFooter, foooter);
-}
-
 // This is the function to render the scrolling messages on the homepage
 export function renderScrollingMessage(id) {
   // Example: Update message dynamically
@@ -105,4 +74,35 @@ export function renderScrollingMessage(id) {
     scrollingText.textContent = messages[index];
   }, 10000);
 });
+}
+
+
+function renderWithTemplate(template, parentElement, data, parent, callback) {
+  parentElement.innerHTML = template;
+  if(callback) {
+    callback(data, parent);
+  }
+}
+
+async function loadTemplate(path) {
+  try {
+    const response = await fetch(path);
+
+    if (!response.ok) {
+      throw new Error (`HTTP error: ${response.status}`)
+    }
+    const template = await response.text();
+    return template;
+  } catch (error) {
+    console.error(`Failed loading template: ${error}`);
+  }
+}
+
+export async function loadHeaderFooter() {
+  const templateHeader = await loadTemplate("../partials/header.html");
+  const templateFooter = await loadTemplate("../partials/footer.html");
+  const header = document.querySelector("#main-header");
+  const footer = document.querySelector("#main-footer");
+  renderWithTemplate(templateHeader, header);
+  renderWithTemplate(templateFooter, footer);
 }
