@@ -75,3 +75,34 @@ export function renderScrollingMessage(id) {
   }, 10000);
 });
 }
+
+
+function renderWithTemplate(template, parentElement, data, parent, callback) {
+  parentElement.innerHTML = template;
+  if(callback) {
+    callback(data, parent);
+  }
+}
+
+async function loadTemplate(path) {
+  try {
+    const response = await fetch(path);
+
+    if (!response.ok) {
+      throw new Error (`HTTP error: ${response.status}`)
+    }
+    const template = await response.text();
+    return template;
+  } catch (error) {
+    console.error(`Failed loading template: ${error}`);
+  }
+}
+
+export async function loadHeaderFooter() {
+  const templateHeader = await loadTemplate("../partials/header.html");
+  const templateFooter = await loadTemplate("../partials/footer.html");
+  const header = document.querySelector("#main-header");
+  const footer = document.querySelector("#main-footer");
+  renderWithTemplate(templateHeader, header);
+  renderWithTemplate(templateFooter, footer);
+}

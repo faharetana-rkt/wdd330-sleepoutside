@@ -1,22 +1,34 @@
-import { getParam, renderNumberOfItemsBackpack } from "./utils.mjs";
+import {
+  getParam,
+  loadHeaderFooter,
+  renderNumberOfItemsBackpack,
+} from "./utils.mjs";
 import ProductData from "./ProductData.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 
-const productId = getParam("product");
-const dataSource = new ProductData("tents");
-const product = new ProductDetails(productId, dataSource);
-product.init();
+document.addEventListener("DOMContentLoaded", async () => {
+  // Load header and footer
+  await loadHeaderFooter();
 
-// // add to cart button event handler
-// async function addToCartHandler(e) {
-//   const product = await dataSource.findProductById(e.target.dataset.id);
-//   addProductToCart(product);
-// }
+  const productId = getParam("product");
+  const dataSource = new ProductData("tents");
+  const product = new ProductDetails(productId, dataSource);
+  product.init();
 
-// // add listener to Add to Cart button
-// document
-//   .getElementById("addToCart")
-//   .addEventListener("click", addToCartHandler);
+  // // add to cart button event handler
+  // async function addToCartHandler(e) {
+  //   const product = await dataSource.findProductById(e.target.dataset.id);
+  //   addProductToCart(product);
+  // }
 
-// function to render the superscript number of items in backpack
-renderNumberOfItemsBackpack(document.querySelector("#cart-numbers"), "so-cart");
+  // // add listener to Add to Cart button
+  // document
+  //   .getElementById("addToCart")
+  //   .addEventListener("click", addToCartHandler);
+
+  // rendering the superscript number of items in backpack
+  renderNumberOfItemsBackpack(
+    document.querySelector("#cart-numbers"),
+    "so-cart",
+  );
+});
