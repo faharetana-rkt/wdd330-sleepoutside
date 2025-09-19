@@ -1,20 +1,24 @@
 import { renderListWithTemplate } from "./utils.mjs";
 
-function productCardTemplate(product) {
-    const imgUrl = product.Image || "../images/tents/tents.webp"
-    return `<li class="product-card">
-            <a href="product_pages/?product=${product.Id}">
-              <img
-                src="${imgUrl}"
-                alt="${product.NameWithoutBrand}"
-                onerror="this.onerror=null; this.src='../images/tents/tent.webp';"
-              />
-              <h3 class="card__brand">${product.Brand.Name}</h3>
-              <h2 class="card__name">${product.NameWithoutBrand}</h2>
-              <p class="product-card__price">$${product.ListPrice}</p>
-            </a>
-            </li>`
+export function productCardTemplate(product) {
+  const imgUrl = product.Images?.PrimaryMedium 
+    ? baseURL + product.Images.PrimaryMedium 
+    : "../images/tents/tent.webp";
+
+  return `
+    <li class="product-card">
+      <a href="../product_pages/index.html?product=${product.Id}">
+        <img
+          src="${imgUrl}"
+          alt="Image of ${product.Name}"
+        />
+        <h3 class="card__brand">${product.Brand.Name}</h3>
+        <h2 class="card__name">${product.NameWithoutBrand}</h2>
+        <p class="product-card__price">$${product.ListPrice}</p>
+      </a>
+    </li>`;
 }
+
 
 export default class ProductList {
     constructor(category, dataSource, listElement) {
@@ -24,7 +28,7 @@ export default class ProductList {
     }
 
     async init() {
-        const productList = await this.dataSource.getData();
+        const productList = await this.dataSource.getData(this.category);
         // this.renderList(productList, this.listElement);
         this.renderList(productList);
     }
