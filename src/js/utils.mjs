@@ -84,7 +84,6 @@ export function loadHeaderFooter() {
   renderWithTemplate(templateFooter, foooter);
 }
 
-
 // This is the function to render the scrolling messages on the homepage
 export function renderScrollingMessage(id) {
   // Example: Update message dynamically
