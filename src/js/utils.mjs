@@ -53,6 +53,7 @@ export function renderNumberOfItemsBackpack(element, key) {
   element.innerHTML = productArray.length;
 }
 
+
 function renderWithTemplate(template, parentElement, data, parent, callback) {
   parentElement.innerHTML = template;
   if(callback) {
@@ -84,3 +85,25 @@ export function loadHeaderFooter() {
 }
 
 
+// This is the function to render the scrolling messages on the homepage
+export function renderScrollingMessage(id) {
+  // Example: Update message dynamically
+  document.addEventListener("DOMContentLoaded", () => {
+  const scrollingText = document.getElementById(id);
+
+  // Array of messages to rotate
+  const messages = [
+    "Welcome to our website! 🎉 Stay tuned for upcoming offers & news.",
+    "We now offer free delivery on orders above $50!",
+    "Subscribe to our newsletter for exclusive discounts!",
+  ];
+
+  let index = 0;
+
+  // Change the message every 10 seconds
+  setInterval(() => {
+    index = (index + 1) % messages.length;
+    scrollingText.textContent = messages[index];
+  }, 10000);
+});
+}
