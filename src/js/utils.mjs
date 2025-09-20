@@ -101,13 +101,13 @@ export async function loadTemplate(path) {
 
 export async function loadHeaderFooter() {
   try {
-    const headerTemplate = await loadTemplate("../partials/header.html");
+    const headerTemplate = await loadTemplate("/partials/header.html");
     const headerElement = document.querySelector("#main-header");
     if (headerElement) {
       renderWithTemplate(headerTemplate, headerElement);
     }
 
-    const footerTemplate = await loadTemplate("../partials/footer.html");
+    const footerTemplate = await loadTemplate("/partials/footer.html");
     const footerElement = document.querySelector("#main-footer");
     if (footerElement) {
       renderWithTemplate(footerTemplate, footerElement);
@@ -116,3 +116,4 @@ export async function loadHeaderFooter() {
     console.error("Error loading header or footer:", error);
   }
 }
+

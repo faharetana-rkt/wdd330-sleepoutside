@@ -188,6 +188,9 @@ button {
 .products {
   margin-top: 2rem;
   padding: 1rem;
+  border-top: 2px solid var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+  display: flex;
 }
 
 .product-list {
@@ -201,6 +204,17 @@ button {
   text-decoration: none;
   color: var(--dark-grey);
 }
+
+.top-products {
+  display: flex;
+  flex-wrap: wrap;        /* Hace que los elementos salten a la siguiente fila */
+  gap: 1rem;              /* Espacio entre tarjetas, opcional */
+  justify-content: center; /* Centrado horizontal de las filas */
+  list-style-type: none;  /* Quitar viñetas */
+  padding: 0;             /* Remover padding interno de UL */
+  margin: 0;              /* Remover margen por defecto */
+}
+
 
 /* Styles for product lists */
 .product-card {
@@ -244,6 +258,7 @@ button {
   font-size: var(--small-font);
   /* max-height: 120px; */
   align-items: center;
+  
 }
 
 .cart-card__image {
