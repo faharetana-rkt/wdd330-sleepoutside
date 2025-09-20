@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Initialize product list
   const listElement = document.querySelector(".product-list");
-  const category = getParam("category")
+  const category = getParam("category");
   const dataSource = new ProductData(category);
   const productList = new ProductList(category, dataSource, listElement);
   productList.init();
