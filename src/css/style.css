@@ -314,3 +314,13 @@ footer {
   }
 }
 
+/* Homepage svg container styles */
+#home-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+#home-container a{
+  text-decoration: none;
+}

@@ -44,6 +44,10 @@ export default class ShoppingCart {
 
   async init() {
     const cartItems = getLocalStorage(this.key) || [];
+    if(cartItems.length === 0) {
+      this.listElement.innerHTML = "Your cart is empty!";
+      return;
+    }
     this.renderList(cartItems);
   }
 
