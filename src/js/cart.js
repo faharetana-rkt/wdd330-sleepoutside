@@ -1,4 +1,4 @@
-import { getLocalStorage, renderNumberOfItemsBackpack } from "./utils.mjs";
+import { getLocalStorage, renderNumberOfItemsBackpack, loadHeaderFooter } from "./utils.mjs";
 
 function renderCartContents() {
   // adding a check to see if the cart is empty
@@ -44,6 +44,8 @@ function getCartTotal(cartItems) {
   }
   totalHTML.innerHTML = "Total: $" + total;
 }
+
+loadHeaderFooter();
 
 renderCartContents();
 
