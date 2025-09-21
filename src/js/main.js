@@ -1,5 +1,5 @@
 import ProductData from "./ProductData.mjs";
-import ProductList from "./PoductList.mjs";
+import ProductList from "./ProductList.mjs";
 import { renderNumberOfItemsBackpack, renderScrollingMessage, loadHeaderFooter } from "./utils.mjs";
 
 const listElement = document.querySelector(".product-list");

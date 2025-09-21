@@ -2,8 +2,11 @@ import { getParam, renderNumberOfItemsBackpack } from "./utils.mjs";
 import ProductData from "./ProductData.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 
+const param = new URLSearchParams(window.location.search);
+const category = param.get("category");
+
 const productId = getParam("product");
-const dataSource = new ProductData("tents");
+const dataSource = new ProductData(category);
 const product = new ProductDetails(productId, dataSource);
 product.init();
 

@@ -71,6 +71,22 @@ p {
   background-color: white;
 }
 
+.categories{
+  display:flex;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+.categories figcaption{
+  text-align: center;
+}
+
+.categories figure{
+  padding: 0px 15px 0px 15px;
+  max-width: 120px;
+  height:auto;
+}
+
 .logo--square {
   font-size: var(--small-font);
   width: 110px;
