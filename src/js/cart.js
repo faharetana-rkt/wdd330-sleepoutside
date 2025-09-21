@@ -1,4 +1,8 @@
-import { getLocalStorage, renderNumberOfItemsBackpack, loadHeaderFooter } from "./utils.mjs";
+import {
+  getLocalStorage,
+  renderNumberOfItemsBackpack,
+  loadHeaderFooter,
+} from "./utils.mjs";
 
 function renderCartContents() {
   // adding a check to see if the cart is empty
@@ -32,8 +36,6 @@ function cartItemTemplate(item) {
   return newItem;
 }
 
-
-
 function getCartTotal(cartItems) {
   const totalHTML = document.querySelector(".cart-total");
   const hide = document.querySelector(".hide");
@@ -52,22 +54,21 @@ loadHeaderFooter();
 
 renderCartContents();
 const removeButtons = document.querySelectorAll(".remove");
-removeButtons.forEach((button)=>{
-  button.addEventListener("click", () =>{
+removeButtons.forEach((button) => {
+  button.addEventListener("click", () => {
     button.parentElement.parentElement.remove();
     let cart = JSON.parse(localStorage.getItem("so-cart")) || [];
 
-    const index = cart.findIndex(item => item.Id === button.id);
-    cart.splice(index,1);
+    const index = cart.findIndex((item) => item.Id === button.id);
+    cart.splice(index, 1);
 
-    localStorage.setItem("so-cart", JSON.stringify(cart))
+    localStorage.setItem("so-cart", JSON.stringify(cart));
 
-    getCartTotal("so-cart")
-  })
+    getCartTotal("so-cart");
+  });
 });
 
 getCartTotal("so-cart");
 
 // function to render the superscript number of items in backpack
 renderNumberOfItemsBackpack(document.querySelector("#cart-numbers"), "so-cart");
-

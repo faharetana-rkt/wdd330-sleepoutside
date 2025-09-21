@@ -71,20 +71,20 @@ p {
   background-color: white;
 }
 
-.categories{
-  display:flex;
+.categories {
+  display: flex;
   justify-content: center;
   padding-top: 50px;
 }
 
-.categories figcaption{
+.categories figcaption {
   text-align: center;
 }
 
-.categories figure{
+.categories figure {
   padding: 0px 15px 0px 15px;
   max-width: 120px;
-  height:auto;
+  height: auto;
 }
 
 .logo--square {
@@ -259,17 +259,17 @@ button {
 }
 
 .cart-card__quantity {
-  display:flex;
+  display: flex;
   grid-row: 1;
   grid-column: 3;
 }
 
 /*remove button for cart*/
-.remove{
+.remove {
   background-color: red;
-  width:20px;
+  width: 20px;
   font-size: 1rem;
-  padding:0;
+  padding: 0;
   justify-content: center;
 }
 
@@ -339,4 +339,3 @@ footer {
     transform: translateX(-100%);
   }
 }
-
