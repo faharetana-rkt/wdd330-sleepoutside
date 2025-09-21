@@ -1,4 +1,5 @@
 import { getParam, loadHeaderFooter } from "./utils.mjs";
+
 import ProductData from "./ProductData.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 
@@ -16,4 +17,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Render product detail
   productDetails.init();
+  
+    // rendering the superscript number of items in backpack
+  renderNumberOfItemsBackpack(
+    document.querySelector("#cart-numbers"),
+    "so-cart",
+  );
 });
