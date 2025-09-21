@@ -1,61 +1,67 @@
+// src/js/ProductDetails.mjs
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { buildImageUrl } from "./ProductData.mjs";
 
 export default class ProductDetails {
-    constructor(productId, dataSource) {
-        this.productId = productId;
-        this.product = {};
-        this.dataSource = dataSource;       
-    }
+  constructor(productId, dataSource) {
+    this.productId = productId;
+    this.product = {};
+    this.dataSource = dataSource;
+  }
 
-    async init() {
-        // use the datasource to get the details for the current product. findProductById will return a promise! use await or .then() to process it
-        this.product = await this.dataSource.findProductById(this.productId);
-        
-        // the product details are needed before rendering the HTML
-        this.renderProductDetails();
-        
-        // once the HTML is rendered, add a listener to the Add to Cart button
-        // Notice the .bind(this). This callback will not work if the bind(this) is missing. Review the readings from this week on 'this' to understand why.
-        document
-            .querySelector("#addToCart")
-            .addEventListener("click", this.addProductToCart.bind(this));
-    }
+  async init() {
+    // Obtener detalles del producto desde la API
+    this.product = await this.dataSource.findProductById(this.productId);
 
-    addProductToCart() {
-      //To get the cart from local storage, or an empty array if there is nothing there
-      let cart = getLocalStorage("so-cart") || [];
-      //To add the product to the cart array
-      cart.push(this.product);
-      //To save the updated cart back to local storage
-      setLocalStorage("so-cart", cart);
-    }
+    // Renderizar el detalle del producto
+    this.renderProductDetails();
 
-    renderProductDetails() {
-        document.querySelector(".product-detail").innerHTML = productDetailsTemplate(this.product);
-    }    
+    // Actualizar el título del documento dinámicamente
+    document.title = `Sleep Outside | ${this.product.Name}`;
+
+    // Agregar listener al botón "Add to Cart"
+    const addToCartBtn = document.querySelector("#addToCart");
+    if (addToCartBtn) {
+      addToCartBtn.addEventListener(
+        "click",
+        this.addProductToCart.bind(this)
+      );
+    }
+  }
+
+  addProductToCart() {
+    // Obtener carrito desde localStorage o crear uno vacío
+    let cart = getLocalStorage("so-cart") || [];
+
+    // Agregar el producto actual
+    cart.push(this.product);
+
+    // Guardar carrito actualizado en localStorage
+    setLocalStorage("so-cart", cart);
+  }
+
+  renderProductDetails() {
+    const container = document.querySelector(".product-detail");
+    if (container) {
+      container.innerHTML = productDetailsTemplate(this.product);
+    }
+  }
 }
 
+// --- Helpers ---
 function productDetailsTemplate(product) {
-        return `<h3>${product.Brand.Name}</h3>
+  const imgUrl = buildImageUrl(product.Images?.PrimaryLarge);
 
-        <h2 class="divider">${product.NameWithoutBrand}</h2>
-
-        <img
-          class="divider"
-          src="${product.Image}"
-          alt="${product.NameWithoutBrand}"
-          onerror="this.onerror=null; this.src='../images/tents/tent.webp';"
-        />
-
-        <p class="product-card__price">$${product.ListPrice}</p>
-
-        <p class="product__color">${product.Colors[0].ColorName}</p>
-
-        <p class="product__description">
-          ${product.DescriptionHtmlSimple}
-        </p>
-
-        <div class="product-detail__add">
-          <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
-        </div>`;
-    }
+  return `
+    <h3>${product.Brand.Name}</h3>
+    <h2 class="divider">${product.NameWithoutBrand}</h2>
+    <img class="divider"
+         src="${imgUrl}"
+         alt="${product.NameWithoutBrand}" />
+    <p class="product-card__price">$${product.ListPrice}</p>
+    <p class="product__color">${product.Colors[0].ColorName}</p>
+    <p class="product__description">${product.DescriptionHtmlSimple}</p>
+    <div class="product-detail__add">
+      <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
+    </div>`;
+}

@@ -70,6 +70,13 @@ p {
   bottom: -15px;
   background-color: white;
 }
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 1rem;
+  text-align: center;
+  justify-items: center; 
+}
 
 .logo--square {
   font-size: var(--small-font);
@@ -84,15 +91,31 @@ p {
   line-height: 1;
 }
 
+
+
 .logo--square img {
-  width: 90px;
-  height: 90px;
-  margin-top: -1.3em;
+  max-width: 60px;
+  height: auto;
+  margin-top: -0.5em;
 }
+
 
 .logo--square > div {
   margin-top: -1.7em;
 }
+
+.category-grid img {
+  width: 80px;   /* ajusta el tamaño */
+  height: auto;  /* mantiene proporción */
+  display: block;
+  margin: 0 auto 0.5rem;
+}
+
+.category-grid p {
+  margin: 0;
+  font-size: var(--small-font);
+}
+
 
 /* utility classes */
 .highlight {
@@ -165,6 +188,9 @@ button {
 .products {
   margin-top: 2rem;
   padding: 1rem;
+  border-top: 2px solid var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+  display: flex;
 }
 
 .product-list {
@@ -178,6 +204,17 @@ button {
   text-decoration: none;
   color: var(--dark-grey);
 }
+
+.top-products {
+  display: flex;
+  flex-wrap: wrap;        /* Hace que los elementos salten a la siguiente fila */
+  gap: 1rem;              /* Espacio entre tarjetas, opcional */
+  justify-content: center; /* Centrado horizontal de las filas */
+  list-style-type: none;  /* Quitar viñetas */
+  padding: 0;             /* Remover padding interno de UL */
+  margin: 0;              /* Remover margen por defecto */
+}
+
 
 /* Styles for product lists */
 .product-card {
@@ -221,6 +258,7 @@ button {
   font-size: var(--small-font);
   /* max-height: 120px; */
   align-items: center;
+  
 }
 
 .cart-card__image {

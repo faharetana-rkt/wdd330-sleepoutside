@@ -1,32 +1,24 @@
-import {
-  getParam,
-  loadHeaderFooter,
-  renderNumberOfItemsBackpack,
-} from "./utils.mjs";
+import { getParam, loadHeaderFooter } from "./utils.mjs";
+
 import ProductData from "./ProductData.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 
 document.addEventListener("DOMContentLoaded", async () => {
-  // Load header and footer
   await loadHeaderFooter();
 
+  // Get product id from URL
   const productId = getParam("product");
-  const dataSource = new ProductData("tents");
-  const product = new ProductDetails(productId, dataSource);
-  product.init();
 
-  // // add to cart button event handler
-  // async function addToCartHandler(e) {
-  //   const product = await dataSource.findProductById(e.target.dataset.id);
-  //   addProductToCart(product);
-  // }
+  // Create ProductData instance
+  const dataSource = new ProductData();
 
-  // // add listener to Add to Cart button
-  // document
-  //   .getElementById("addToCart")
-  //   .addEventListener("click", addToCartHandler);
+  // Create ProductDetails instance
+  const productDetails = new ProductDetails(productId, dataSource);
 
-  // rendering the superscript number of items in backpack
+  // Render product detail
+  productDetails.init();
+  
+    // rendering the superscript number of items in backpack
   renderNumberOfItemsBackpack(
     document.querySelector("#cart-numbers"),
     "so-cart",

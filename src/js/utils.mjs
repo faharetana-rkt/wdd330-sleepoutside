@@ -36,13 +36,27 @@ export function getParam(param) {
 // list is the product list or an array of object
 // position is the position where to insert inside DOM: beforebegin, afterbegin, beforeend, afterend
 // clear is a boolean to check if we want to clear the parent element beforehand
-export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
+export function renderListWithTemplate(
+  templateFn,
+  parentElement,
+  list,
+  position = "afterbegin",
+  clear = false
+) {
   // clear parentElement if clear is true
-  if(clear) {
+  if (clear) {
     parentElement.innerHTML = "";
   }
   const templateArray = list.map(templateFn);
   parentElement.insertAdjacentHTML(position, templateArray.join(""));
+}
+
+// render one template into a parent element (used for header/footer)
+export function renderWithTemplate(template, parentElement, data, callback) {
+  parentElement.innerHTML = template;
+  if (callback) {
+    callback(data);
+  }
 }
 
 // This is the function to render the superscript number of items in the backpack icon
@@ -57,52 +71,49 @@ export function renderNumberOfItemsBackpack(element, key) {
 export function renderScrollingMessage(id) {
   // Example: Update message dynamically
   document.addEventListener("DOMContentLoaded", () => {
-  const scrollingText = document.getElementById(id);
+    const scrollingText = document.getElementById(id);
 
-  // Array of messages to rotate
-  const messages = [
-    "Welcome to our website! 🎉 Stay tuned for upcoming offers & news.",
-    "We now offer free delivery on orders above $50!",
-    "Subscribe to our newsletter for exclusive discounts!",
-  ];
+    // Array of messages to rotate
+    const messages = [
+      "Welcome to our website! 🎉 Stay tuned for upcoming offers & news.",
+      "We now offer free delivery on orders above $50!",
+      "Subscribe to our newsletter for exclusive discounts!",
+    ];
 
-  let index = 0;
+    let index = 0;
 
-  // Change the message every 10 seconds
-  setInterval(() => {
-    index = (index + 1) % messages.length;
-    scrollingText.textContent = messages[index];
-  }, 10000);
-});
+    // Change the message every 10 seconds
+    setInterval(() => {
+      index = (index + 1) % messages.length;
+      scrollingText.textContent = messages[index];
+    }, 10000);
+  });
 }
 
-
-function renderWithTemplate(template, parentElement, data, parent, callback) {
-  parentElement.innerHTML = template;
-  if(callback) {
-    callback(data, parent);
+// --- Template loading helpers ---
+export async function loadTemplate(path) {
+  const response = await fetch(path);
+  if (!response.ok) {
+    throw new Error(`Error loading template: ${path}`);
   }
-}
-
-async function loadTemplate(path) {
-  try {
-    const response = await fetch(path);
-
-    if (!response.ok) {
-      throw new Error (`HTTP error: ${response.status}`)
-    }
-    const template = await response.text();
-    return template;
-  } catch (error) {
-    console.error(`Failed loading template: ${error}`);
-  }
+  return await response.text();
 }
 
 export async function loadHeaderFooter() {
-  const templateHeader = await loadTemplate("../partials/header.html");
-  const templateFooter = await loadTemplate("../partials/footer.html");
-  const header = document.querySelector("#main-header");
-  const footer = document.querySelector("#main-footer");
-  renderWithTemplate(templateHeader, header);
-  renderWithTemplate(templateFooter, footer);
+  try {
+    const headerTemplate = await loadTemplate("/partials/header.html");
+    const headerElement = document.querySelector("#main-header");
+    if (headerElement) {
+      renderWithTemplate(headerTemplate, headerElement);
+    }
+
+    const footerTemplate = await loadTemplate("/partials/footer.html");
+    const footerElement = document.querySelector("#main-footer");
+    if (footerElement) {
+      renderWithTemplate(footerTemplate, footerElement);
+    }
+  } catch (error) {
+    console.error("Error loading header or footer:", error);
+  }
 }
+
