@@ -24,12 +24,15 @@ function cartItemTemplate(item) {
     <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
+  <p class="cart-card__quantity">qty: 1<button class="remove" id="${item.Id}">X</button></p>
+  
   <p class="cart-card__price">$${item.FinalPrice}</p>
 </li>`;
 
   return newItem;
 }
+
+
 
 function getCartTotal(cartItems) {
   const totalHTML = document.querySelector(".cart-total");
@@ -42,14 +45,30 @@ function getCartTotal(cartItems) {
   for (let i = 0; i < cart.length; i++) {
     total += cart[i].FinalPrice;
   }
-  totalHTML.innerHTML = "Total: $" + total;
+  totalHTML.innerHTML = "Total: $" + total.toFixed(2);
 }
 
 loadHeaderFooter();
 
 renderCartContents();
+const removeButtons = document.querySelectorAll(".remove");
+removeButtons.forEach((button)=>{
+  button.addEventListener("click", () =>{
+    button.parentElement.parentElement.remove();
+    let cart = JSON.parse(localStorage.getItem("so-cart")) || [];
+    const idToRemove = button.id;
+
+    const index = cart.findIndex(item => item.Id === button.id);
+    cart.splice(index,1);
+
+    localStorage.setItem("so-cart", JSON.stringify(cart))
+
+    getCartTotal("so-cart")
+  })
+});
 
 getCartTotal("so-cart");
 
 // function to render the superscript number of items in backpack
 renderNumberOfItemsBackpack(document.querySelector("#cart-numbers"), "so-cart");
+

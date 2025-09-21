@@ -259,8 +259,18 @@ button {
 }
 
 .cart-card__quantity {
+  display:flex;
   grid-row: 1;
   grid-column: 3;
+}
+
+/*remove button for cart*/
+.remove{
+  background-color: red;
+  width:20px;
+  font-size: 1rem;
+  padding:0;
+  justify-content: center;
 }
 
 .cart-card__price {
