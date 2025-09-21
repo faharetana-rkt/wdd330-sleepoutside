@@ -56,7 +56,6 @@ removeButtons.forEach((button)=>{
   button.addEventListener("click", () =>{
     button.parentElement.parentElement.remove();
     let cart = JSON.parse(localStorage.getItem("so-cart")) || [];
-    const idToRemove = button.id;
 
     const index = cart.findIndex(item => item.Id === button.id);
     cart.splice(index,1);
