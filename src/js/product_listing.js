@@ -1,10 +1,11 @@
 // src/js/product-listing.js
 import ProductData from "./ProductData.mjs";
 import ProductList from "./ProductList.mjs";
-import { loadHeaderFooter, getParam } from "./utils.mjs";
+import { loadHeaderFooter, getParam, renderNumberOfItemsBackpack } from "./utils.mjs";
 
-// Load header and footer dynamically
-loadHeaderFooter();
+document.addEventListener("DOMContentLoaded", async () => {
+  // Load header and footer dynamically
+  await loadHeaderFooter();
 
 // Get category from URL
 const category = getParam("category");
@@ -28,3 +29,7 @@ if (titleElement && category) {
   const formattedCategory = category.charAt(0).toUpperCase() + category.slice(1);
   titleElement.textContent = `Top Products: ${formattedCategory}`;
 }
+
+// Render the superscript number of items in backpack
+renderNumberOfItemsBackpack(document.querySelector("#cart-numbers"), "so-cart");
+});

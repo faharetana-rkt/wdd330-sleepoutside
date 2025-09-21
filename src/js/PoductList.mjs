@@ -1,3 +1,4 @@
+const baseURL = import.meta.env.VITE_SERVER_URL;
 import { renderListWithTemplate } from "./utils.mjs";
 
 export function productCardTemplate(product) {

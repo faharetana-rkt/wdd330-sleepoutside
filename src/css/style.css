@@ -116,6 +116,10 @@ p {
   font-size: var(--small-font);
 }
 
+.category-grid a {
+  text-decoration: none;
+  color: black;
+}
 
 /* utility classes */
 .highlight {
