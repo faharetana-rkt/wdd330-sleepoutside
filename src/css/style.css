@@ -228,6 +228,7 @@ button {
   padding: 0.5em;
   border: 1px solid var(--light-grey);
   max-width: 250px;
+  position: relative;
 }
 
 .product-card h2,
@@ -368,4 +369,15 @@ footer {
   100% {
     transform: translateX(-100%);
   }
+}
+
+/* Discount styling */
+.discount-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 40px;
+  position: absolute;
+  right: 50px;
+  top: 5px;
 }

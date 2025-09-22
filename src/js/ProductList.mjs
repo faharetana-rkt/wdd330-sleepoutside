@@ -11,6 +11,7 @@ export function productCardTemplate(product) {
         <h3 class="card__brand">${product.Brand.Name}</h3>
         <h2 class="card__name">${product.NameWithoutBrand}</h2>
         <p class="product-card__price">$${product.ListPrice}</p>
+        <div class="discount-container"></div>
       </a>
     </li>`;
 }
@@ -33,7 +34,7 @@ export default class ProductList {
     //     listElement.innerHTML = "";
     //     listElement.insertAdjacentHTML("afterbegin", templateArray.join(""));
     // }
-    
+
     renderList(list) {
         renderListWithTemplate(productCardTemplate, this.listElement, list, "afterbegin", true);
     }

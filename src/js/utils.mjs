@@ -117,3 +117,25 @@ export async function loadHeaderFooter() {
   }
 }
 
+// This function checks the discount if there is
+// It either returns null if there isn't a discount or else returns the discount percentage
+export function checkDiscount(product) {
+  const retail = product.SuggestedRetailPrice;
+  const price = product.ListPrice;
+  if(retail > price) {
+    let discount = Math.round((retail - price) / retail * 100);
+    return discount;
+  } else {
+    return null;
+  }
+}
+
+// This function renders the discount on the html page
+export function renderDiscount(discount, parentElement, imgPath) {
+  if(discount) {
+    parentElement.innerHTML = `<img src="${imgPath}" alt="discount icon">
+    <span>-${discount}%</span>`;
+  } else {
+    parentElement.innerHTML = "";
+  }
+}
