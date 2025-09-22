@@ -6,7 +6,7 @@ import {
   getParam,
   renderNumberOfItemsBackpack,
   checkDiscount,
-  renderDiscount
+  renderDiscount,
 } from "./utils.mjs";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -46,11 +46,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Discount for the product lists
   const categoryArray = await dataSource.getData(category);
   const discountArray = categoryArray.map(checkDiscount, categoryArray);
-  const discountContainerArray = document.querySelectorAll(".discount-container");
+  const discountContainerArray = document.querySelectorAll(
+    ".discount-container",
+  );
   discountArray.forEach((discount, i) => {
-      const container = discountContainerArray[i];
-      if(container) {
-        renderDiscount(discount, container,"../images/discount.svg");
-      }
+    const container = discountContainerArray[i];
+    if (container) {
+      renderDiscount(discount, container, "../images/discount.svg");
+    }
   });
 });
