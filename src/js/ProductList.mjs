@@ -24,8 +24,16 @@ export default class ProductList {
     }
     async init() {
     const list = await this.dataSource.getData(this.category);
+    // this.renderList(productList, this.listElement);
     this.renderList(list);
     }
+
+    // renderList(list, listElement) {
+    //     const templateArray = list.map(productCardTemplate);
+    //     listElement.innerHTML = "";
+    //     listElement.insertAdjacentHTML("afterbegin", templateArray.join(""));
+    // }
+    
     renderList(list) {
         renderListWithTemplate(productCardTemplate, this.listElement, list, "afterbegin", true);
     }

@@ -72,10 +72,10 @@ p {
 }
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); 
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   text-align: center;
-  justify-items: center; 
+  justify-items: center;
 }
 
 .logo--square {
@@ -91,22 +91,19 @@ p {
   line-height: 1;
 }
 
-
-
 .logo--square img {
   max-width: 60px;
   height: auto;
   margin-top: -0.5em;
 }
 
-
 .logo--square > div {
   margin-top: -1.7em;
 }
 
 .category-grid img {
-  width: 80px;   /* ajusta el tamaño */
-  height: auto;  /* mantiene proporción */
+  width: 80px; /* ajusta el tamaño */
+  height: auto; /* mantiene proporción */
   display: block;
   margin: 0 auto 0.5rem;
 }
@@ -197,6 +194,11 @@ button {
   display: flex;
 }
 
+#cart-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .product-list {
   display: flex;
   flex-flow: row wrap;
@@ -211,14 +213,13 @@ button {
 
 .top-products {
   display: flex;
-  flex-wrap: wrap;        /* Hace que los elementos salten a la siguiente fila */
-  gap: 1rem;              /* Espacio entre tarjetas, opcional */
+  flex-wrap: wrap; /* Hace que los elementos salten a la siguiente fila */
+  gap: 1rem; /* Espacio entre tarjetas, opcional */
   justify-content: center; /* Centrado horizontal de las filas */
-  list-style-type: none;  /* Quitar viñetas */
-  padding: 0;             /* Remover padding interno de UL */
-  margin: 0;              /* Remover margen por defecto */
+  list-style-type: none; /* Quitar viñetas */
+  padding: 0; /* Remover padding interno de UL */
+  margin: 0; /* Remover margen por defecto */
 }
-
 
 /* Styles for product lists */
 .product-card {
@@ -262,7 +263,6 @@ button {
   font-size: var(--small-font);
   /* max-height: 120px; */
   align-items: center;
-  
 }
 
 .cart-card__image {
@@ -292,6 +292,20 @@ button {
 .cart-card__price {
   grid-row: 2;
   grid-column: 3;
+}
+
+.list-footer {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-footer a {
+  text-decoration: none;
+}
+
+#checkout {
+  display: block;
+  text-decoration: none;
 }
 
 @media screen and (min-width: 500px) {
@@ -355,4 +369,3 @@ footer {
     transform: translateX(-100%);
   }
 }
-

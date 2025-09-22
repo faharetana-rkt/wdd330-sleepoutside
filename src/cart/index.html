@@ -9,17 +9,17 @@
   </head>
 
   <body>
-
     <header class="divider" id="main-header"></header>
 
     <main class="divider">
-      <section class="products">
+      <section class="products" id="cart-container">
         <h2>My Cart</h2>
         <ul class="product-list"></ul>
         <div class="list-footer hide">
-          <a href="/checkout/">Checkout</a>
-          <span>Total:</span>
-          <span class="list-total">Total: </span>
+          <span class="list-total"></span>
+          <a href="/checkout/"
+            ><button id="checkout-button">Checkout</button></a
+          >
         </div>
       </section>
     </main>
