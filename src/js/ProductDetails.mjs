@@ -1,6 +1,6 @@
 // src/js/ProductDetails.mjs
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
-import { buildImageUrl } from "./ProductData.mjs";
+import { buildImageUrl } from "./ExternalServices.mjs";
 
 export default class ProductDetails {
   constructor(productId, dataSource) {

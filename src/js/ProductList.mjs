@@ -1,5 +1,5 @@
 import { renderListWithTemplate } from "./utils.mjs";
-import { buildImageUrl } from "./ProductData.mjs";
+import { buildImageUrl } from "./ExternalServices.mjs";
 
 export function productCardTemplate(product) {
   const imgUrl = buildImageUrl(product.Images?.PrimaryMedium);

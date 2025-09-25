@@ -1,4 +1,4 @@
-// src/js/ProductData.mjs
+// src/js/ExternalServices.mjs
 export const baseURL = import.meta.env.VITE_SERVER_URL;
 
 export function buildImageUrl(path) {
@@ -17,7 +17,7 @@ function convertToJson(res) {
   }
 }
 
-export default class ProductData {
+export default class ExternalServices {
   async getData(category) {
     const response = await fetch(`${baseURL}products/search/${category}`);
     const data = await convertToJson(response);
@@ -31,3 +31,5 @@ export default class ProductData {
     return data.Result; // single product
   }
 }
+
+ 

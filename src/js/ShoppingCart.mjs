@@ -1,5 +1,5 @@
 import { renderListWithTemplate, getLocalStorage } from "./utils.mjs";
-import { buildImageUrl } from "./ProductData.mjs";
+import { buildImageUrl } from "./ExternalServices.mjs";
 
 // this is the template for the cart
 function cartItemTemplate(item) {
