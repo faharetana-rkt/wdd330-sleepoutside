@@ -68,3 +68,11 @@ export default class CheckoutProcess {
     this.displayOrderTotals();
   }
 }
+
+function packageItems(items) {
+  return items.map(item => ({id: item.Id, name: item.Name, price: item.FinalPrice, quantity: 1}));
+}
+
+async function checkout(form) {
+  
+}
