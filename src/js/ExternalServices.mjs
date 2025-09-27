@@ -1,23 +1,26 @@
-// src/js/ProductData.mjs
+// src/js/ExternalServices.mjs
 export const baseURL = import.meta.env.VITE_SERVER_URL;
 
 export function buildImageUrl(path) {
   if (!path) return "../images/tents/tent.webp"; // fallback image
-  // Ensure no double slashes
   return path.startsWith("http")
     ? path
     : `${baseURL}${path.replace(/^\/+/, "")}`;
 }
 
-function convertToJson(res) {
+
+async function convertToJson(res) {
+  const jsonResponse = await res.json();
   if (res.ok) {
-    return res.json();
+    return jsonResponse;
   } else {
-    throw new Error("Bad Response");
+
+    throw { name: "servicesError", message: jsonResponse };
   }
 }
 
-export default class ProductData {
+export default class ExternalServices {
+
   async getData(category) {
     const response = await fetch(`${baseURL}products/search/${category}`);
     const data = await convertToJson(response);
@@ -28,6 +31,20 @@ export default class ProductData {
   async findProductById(id) {
     const response = await fetch(`${baseURL}product/${id}`);
     const data = await convertToJson(response);
-    return data.Result; // single product
+    return data.Result;
+  }
+
+
+  async checkout(orderData) {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(orderData),
+    };
+
+    const response = await fetch(`${baseURL}checkout`, options);
+    return await convertToJson(response);
   }
 }

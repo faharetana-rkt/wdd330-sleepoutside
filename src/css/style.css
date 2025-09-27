@@ -303,6 +303,117 @@ button {
 .list-footer a {
   text-decoration: none;
 }
+/* checkouyt process */
+
+/* -------- Checkout Page -------- */
+.checkout {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.checkout h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+/* Form fields */
+.checkout-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+fieldset {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+legend {
+  font-weight: bold;
+  color: #444;
+  padding: 0 0.5rem;
+}
+
+/* Name and address fields */
+.checkout__name,
+.checkout__address,
+.checkout__payment {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 2rem;
+}
+
+.checkout__address label,
+.checkout__payment label,
+.checkout__name label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+.checkout__address input,
+.checkout__payment input,
+.checkout__name input {
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.checkout__address input:focus,
+.checkout__payment input:focus,
+.checkout__name input:focus {
+  border-color: #4caf50;
+  outline: none;
+}
+
+/* Order summary */
+.checkout-summary {
+  background: #f9f9f9;
+}
+
+.order__summary {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.order__summary div {
+  padding: 0.3rem 0;
+}
+
+.order__summary div:nth-child(even) {
+  text-align: right;
+  font-weight: bold;
+}
+
+/* Checkout button */
+#checkoutSubmit {
+  margin-top: 1rem;
+  padding: 0.8rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#checkoutSubmit:hover {
+  background: #45a049;
+}
+
 
 #checkout {
   display: block;

@@ -1,5 +1,5 @@
 // src/js/product-listing.js
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 import ProductList from "./ProductList.mjs";
 import {
   loadHeaderFooter,
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const category = getParam("category");
 
   // Create data source
-  const dataSource = new ProductData();
+  const dataSource = new ExternalServices();
 
   // Get the element where the products will render
   const listElement = document.querySelector(".product-list");

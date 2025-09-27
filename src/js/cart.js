@@ -6,39 +6,37 @@ document.addEventListener("DOMContentLoaded", async () => {
   await loadHeaderFooter();
 
   const listElement = document.querySelector(".product-list");
-  const totalElement = document.querySelector(".cart-total");
-  const footerElement = document.querySelector(".cart-footer");
 
-  const cart = new ShoppingCart(
-    "so-cart",
-    listElement,
-    totalElement,
-    footerElement,
-  );
+  const cart = new ShoppingCart("so-cart", listElement);
   cart.init();
 
-  const removeButtons = document.querySelectorAll(".remove");
-  removeButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      button.parentElement.parentElement.remove();
+  listElement.addEventListener("click", (e) => {
+    if (e.target.classList.contains("remove")) {
+      const button = e.target;
+
+      // Remove the item from the DOM
+      button.closest("li").remove();
+
+  
       let items = JSON.parse(localStorage.getItem("so-cart")) || [];
-
       const index = items.findIndex((item) => item.Id === button.id);
-      items.splice(index, 1);
-
-      if (items.length !== 0) {
-        getCartTotal("so-cart");
+      if (index !== -1) {
+        items.splice(index, 1);
       }
       localStorage.setItem("so-cart", JSON.stringify(items));
-    });
+
+
+      getCartTotal("so-cart");
+
+  
+      renderNumberOfItemsBackpack(
+        document.querySelector("#cart-numbers"),
+        "so-cart"
+      );
+    }
   });
 
-  // function to render the number of items in the backpack
-  renderNumberOfItemsBackpack(
-    document.querySelector("#cart-numbers"),
-    "so-cart",
-  );
-
-  // render total
+  // Initial render of cart number and total
+  renderNumberOfItemsBackpack(document.querySelector("#cart-numbers"), "so-cart");
   getCartTotal("so-cart");
 });

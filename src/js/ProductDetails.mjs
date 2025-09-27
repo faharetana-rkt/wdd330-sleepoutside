@@ -1,6 +1,5 @@
-// src/js/ProductDetails.mjs
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
-import { buildImageUrl } from "./ProductData.mjs";
+import { getLocalStorage, setLocalStorage, renderNumberOfItemsBackpack } from "./utils.mjs";
+import { buildImageUrl } from "./ExternalServices.mjs";
 
 export default class ProductDetails {
   constructor(productId, dataSource) {
@@ -10,34 +9,28 @@ export default class ProductDetails {
   }
 
   async init() {
-    // Obtener detalles del producto desde la API
     this.product = await this.dataSource.findProductById(this.productId);
-
-    // Renderizar el detalle del producto
     this.renderProductDetails();
-
-    // Actualizar el título del documento dinámicamente
     document.title = `Sleep Outside | ${this.product.Name}`;
 
-    // Agregar listener al botón "Add to Cart"
     const addToCartBtn = document.querySelector("#addToCart");
     if (addToCartBtn) {
-      addToCartBtn.addEventListener(
-        "click",
-        this.addProductToCart.bind(this)
-      );
+      addToCartBtn.addEventListener("click", this.addProductToCart.bind(this));
     }
   }
 
   addProductToCart() {
-    // Obtener carrito desde localStorage o crear uno vacío
     let cart = getLocalStorage("so-cart") || [];
 
-    // Agregar el producto actual
     cart.push(this.product);
 
-    // Guardar carrito actualizado en localStorage
     setLocalStorage("so-cart", cart);
+
+    // Update the number of items in the cart icon
+    renderNumberOfItemsBackpack(
+      document.querySelector("#cart-numbers"),
+      "so-cart"
+    );
   }
 
   renderProductDetails() {
