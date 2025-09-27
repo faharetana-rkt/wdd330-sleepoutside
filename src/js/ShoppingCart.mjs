@@ -1,5 +1,5 @@
 import { renderListWithTemplate, getLocalStorage } from "./utils.mjs";
-import { buildImageUrl } from "./ProductData.mjs";
+import { buildImageUrl } from "./ExternalServices.mjs";
 
 // this is the template for the cart
 function cartItemTemplate(item) {
@@ -25,17 +25,28 @@ function cartItemTemplate(item) {
 
 export function getCartTotal(cartItems) {
   const totalHTML = document.querySelector(".list-total");
-  const hide = document.querySelector(".hide");
+  const footer = document.querySelector(".list-footer");// opcional
+
   let cart = JSON.parse(localStorage.getItem(cartItems)) || [];
-  if (cart.length != 0) {
-    hide.classList.remove("hide");
+
+  if (footer) {
+    if (cart.length !== 0) {
+      footer.classList.remove("hide");
+    } else {
+      footer.classList.add("hide");
+    }
   }
+
   let total = 0;
   for (let i = 0; i < cart.length; i++) {
     total += cart[i].FinalPrice;
   }
-  totalHTML.innerHTML = "Total: $" + total.toFixed(2);
+
+  if (totalHTML) {
+    totalHTML.innerHTML = "Total: $" + total.toFixed(2);
+  }
 }
+
 
 
 export default class ShoppingCart {
