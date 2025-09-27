@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       // Remove the item from the DOM
       button.closest("li").remove();
 
-  
       let items = JSON.parse(localStorage.getItem("so-cart")) || [];
       const index = items.findIndex((item) => item.Id === button.id);
       if (index !== -1) {
@@ -25,18 +24,19 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
       localStorage.setItem("so-cart", JSON.stringify(items));
 
-
       getCartTotal("so-cart");
 
-  
       renderNumberOfItemsBackpack(
         document.querySelector("#cart-numbers"),
-        "so-cart"
+        "so-cart",
       );
     }
   });
 
   // Initial render of cart number and total
-  renderNumberOfItemsBackpack(document.querySelector("#cart-numbers"), "so-cart");
+  renderNumberOfItemsBackpack(
+    document.querySelector("#cart-numbers"),
+    "so-cart",
+  );
   getCartTotal("so-cart");
 });

@@ -19,10 +19,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     checkout.calculateOrderTotal();
   });
 
- 
   document.forms["checkout"].addEventListener("submit", (e) => {
     e.preventDefault();
     checkout.checkout(e.target);
   });
-
 });
