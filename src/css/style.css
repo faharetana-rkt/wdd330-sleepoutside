@@ -419,6 +419,29 @@ legend {
   text-decoration: none;
 }
 
+.alert {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.alert button.alert-close {
+  background: none;
+  border: none;
+  font-weight: bold;
+  color: #721c24;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;

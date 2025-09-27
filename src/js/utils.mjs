@@ -130,6 +130,35 @@ export function checkDiscount(product) {
   }
 }
 
+// src/js/utils.mjs
+
+export function alertMessage(message, scroll = true) {
+  // crear el contenedor de la alerta
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+
+  // estructura del mensaje + botón de cierre
+  alert.innerHTML = `
+    <span class="alert-message">${message}</span>
+    <button class="alert-close">X</button>
+  `;
+
+  // referencia al main
+  const main = document.querySelector("main");
+  main.prepend(alert);
+
+  // evento para cerrar alerta si el usuario hace clic en el botón X
+  alert.querySelector(".alert-close").addEventListener("click", () => {
+    main.removeChild(alert);
+  });
+
+  // opcional: asegurar que el usuario vea la alerta
+  if (scroll) {
+    window.scrollTo(0, 0);
+  }
+}
+
+
 // This function renders the discount on the html page
 export function renderDiscount(discount, parentElement, imgPath) {
   if(discount) {
