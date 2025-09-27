@@ -74,5 +74,18 @@ function packageItems(items) {
 }
 
 async function checkout(form) {
-  
+  const order = formDataToJSON(form);
+  const newDate = new Date();
+  const orderDate = newDate.toString();
+  order.orderDate = orderDate;
 }
+
+function formDataToJSON(formElement) {
+  const formData = new FormData(formElement), convertedJSON = {};
+  formData.forEach(function (value, key) {
+    convertedJSON[key] = value;
+  });
+
+  return convertedJSON;
+}
+
