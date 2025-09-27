@@ -4,7 +4,7 @@ import {
   renderNumberOfItemsBackpack,
 } from "./utils.mjs";
 
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -13,8 +13,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Get product id from URL
   const productId = getParam("product");
 
-  // Create ProductData instance
-  const dataSource = new ProductData();
+  // Create ExternalServices instance
+  const dataSource = new ExternalServices();
 
   // Create ProductDetails instance
   const productDetails = new ProductDetails(productId, dataSource);
