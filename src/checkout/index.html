@@ -1,5 +1,4 @@
 <!doctype html>
-
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -17,35 +16,44 @@
       <section class="checkout-form">
         <form name="checkout">
           <fieldset>
-            <legend>Personal Informations</legend>
+            <legend>Personal Information</legend>
             <div class="checkout__name">
               <label for="fname">First Name</label>
-              <input type="text" name="fname" id="fname" required />
+              <input type="text" name="fname" id="fname" required minlength="2" title="First name must be at least 2 characters" />
+
               <label for="lname">Last Name</label>
-              <input type="text" name="lname" id="lname" required />
+              <input type="text" name="lname" id="lname" required minlength="2" title="Last name must be at least 2 characters" />
             </div>
+
             <div class="checkout__address">
               <label for="address">Street Address</label>
-              <input type="text" name="street" id="address" required />
+              <input type="text" name="street" id="address" required minlength="5" title="Street address must be at least 5 characters" />
+
               <label for="city">City</label>
-              <input type="text" name="city" id="city" required />
+              <input type="text" name="city" id="city" required minlength="2" title="City must be at least 2 characters" />
+
               <label for="state">State</label>
-              <input type="text" name="state" id="state" required />
+              <input type="text" name="state" id="state" required minlength="2" title="State must be at least 2 characters" />
+
               <label for="zip">Zip</label>
-              <input type="text" name="zip" id="zip" required />
+              <input type="text" name="zip" id="zip" required pattern="\d{5}" title="Zip code must be 5 digits" />
             </div>
           </fieldset>
+
           <fieldset>
             <legend>Payment</legend>
             <div class="checkout__payment">
               <label for="cardNumber">Card Number</label>
-              <input type="text" name="cardNumber" id="cardNumber" required />
+              <input type="text" name="cardNumber" id="cardNumber" required pattern="\d{16}" title="Card number must be 16 digits" />
+
               <label for="exp">Expiration</label>
-              <input type="text" name="expiration" id="exp" required />
+              <input type="text" name="expiration" id="exp" required pattern="\d{2}/\d{2}" title="Expiration must be in MM/YY format" />
+
               <label for="cvv">CVV</label>
-              <input type="text" name="code" id="cvv" required />
+              <input type="text" name="code" id="cvv" required pattern="\d{3}" title="CVV must be 3 digits" />
             </div>
           </fieldset>
+
           <fieldset class="checkout-summary">
             <legend>Order Summary</legend>
 
@@ -58,15 +66,16 @@
               <div id="shipping"></div>
               <div>Tax</div>
               <div id="tax"></div>
-
               <div>Total</div>
               <div id="total"></div>
             </div>
           </fieldset>
+
           <button type="submit" id="checkoutSubmit">Checkout</button>
         </form>
       </section>
     </main>
+
     <footer id="main-footer"></footer>
   </body>
 </html>

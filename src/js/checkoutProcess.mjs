@@ -4,7 +4,8 @@ import ExternalServices from "./ExternalServices.mjs";
 
 const services = new ExternalServices();
 
-export default class CheckoutProcess {
+export default class CheckoutProcess 
+{
   constructor(key, outputSelector) {
     this.key = key;
     this.outputSelector = outputSelector;
@@ -17,9 +18,14 @@ export default class CheckoutProcess {
   }
 
   init() {
-    this.list = getLocalStorage(this.key) || [];
-    this.calculateItemSummary();
-    this.calculateOrderTotal();
+    try {
+      this.list = getLocalStorage(this.key) || [];
+      this.calculateItemSummary();
+      this.calculateOrderTotal();
+    }
+    catch (err) {
+      console.error("Failed to inizialize checkout: ", error);
+    }
   }
 
   calculateItemSummary() {
@@ -77,6 +83,13 @@ export default class CheckoutProcess {
 async checkout(formElement) {
   const order = this.formDataToJSON(formElement);
 
+  order.cardNumber = order.cardNumber.toString().replace(/\s+/g, "");
+  order.expiration = order.expiration.trim();
+  const expMatch = order.expiration.match(/^(\d{2})\/(\d{2})$/);
+  if (!expMatch) {
+    console.error("Expiration date format invalid. Expected MM/YY");
+  }
+
   // Add order metadata
   order.orderDate = new Date().toISOString();
   order.items = this.packageItems(this.list);
@@ -87,7 +100,10 @@ async checkout(formElement) {
   try {
     // Try to submit the order
     const response = await services.checkout(order);
-    console.log("Order success:", response);
+    if (response) {
+      localStorage.removeItem("so-cart");
+      window.location.href = "success.html";
+    }
 
     // Give user feedback
     alert("✅ Order placed successfully!");

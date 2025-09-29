@@ -21,6 +21,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   document.forms["checkout"].addEventListener("submit", (e) => {
     e.preventDefault();
-    checkout.checkout(e.target);
+    const checkStatus = e.target.checkValidity();
+    if (checkStatus){
+      checkout.checkout(e.target);
+    }
+    else {
+      e.target.reportValidity();
+    }
   });
 });
