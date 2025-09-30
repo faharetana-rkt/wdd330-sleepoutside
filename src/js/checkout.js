@@ -1,3 +1,4 @@
+// src/js/checkout.js
 import { loadHeaderFooter, renderNumberOfItemsBackpack } from "./utils.mjs";
 import CheckoutProcess from "./CheckoutProcess.mjs";
 
@@ -5,22 +6,32 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Load header and footer
   await loadHeaderFooter();
 
-  // rendering the superscript number of items in backpack
+  // Render number of items in backpack
   renderNumberOfItemsBackpack(
     document.querySelector("#cart-numbers"),
-    "so-cart",
+    "so-cart"
   );
+
   // Initialize checkout process
   const checkout = new CheckoutProcess("so-cart", ".checkout-summary");
   checkout.init();
 
-  // Calculate order total when ZIP code field loses focus
+  // Recalculate totals when ZIP code field loses focus
   document.querySelector("#zip").addEventListener("blur", () => {
     checkout.calculateOrderTotal();
   });
 
-  document.forms["checkout"].addEventListener("submit", (e) => {
+  // Handle form submission
+  const form = document.forms["checkout"];
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
-    checkout.checkout(e.target);
+
+    // check form validity
+    const isValid = form.checkValidity();
+    form.reportValidity();
+
+    if (isValid) {
+      checkout.checkout(form);
+    }
   });
 });

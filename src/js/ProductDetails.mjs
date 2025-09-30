@@ -1,5 +1,6 @@
 import { getLocalStorage, setLocalStorage, renderNumberOfItemsBackpack } from "./utils.mjs";
 import { buildImageUrl } from "./ExternalServices.mjs";
+import { alertMessage } from "./utils.mjs";
 
 export default class ProductDetails {
   constructor(productId, dataSource) {
@@ -25,6 +26,7 @@ export default class ProductDetails {
     cart.push(this.product);
 
     setLocalStorage("so-cart", cart);
+    alertMessage("✅ Item added to cart!");
 
     // Update the number of items in the cart icon
     renderNumberOfItemsBackpack(

@@ -1,8 +1,7 @@
 // src/js/CheckoutProcess.mjs
 import { getLocalStorage } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
-
-const services = new ExternalServices();
+import { alertMessage } from "./utils.mjs";
 
 export default class CheckoutProcess {
   constructor(key, outputSelector) {
@@ -13,7 +12,7 @@ export default class CheckoutProcess {
     this.shipping = 0;
     this.tax = 0;
     this.orderTotal = 0;
-    this.services = new ExternalServices();
+    this.services = new ExternalServices(); 
   }
 
   init() {
@@ -53,7 +52,6 @@ export default class CheckoutProcess {
     orderTotal.innerText = `$${this.orderTotal.toFixed(2)}`;
   }
 
-
   packageItems(items) {
     return items.map((item) => ({
       id: item.Id,
@@ -63,7 +61,6 @@ export default class CheckoutProcess {
     }));
   }
 
-    
   formDataToJSON(formElement) {
     const formData = new FormData(formElement);
     const convertedJSON = {};
@@ -73,47 +70,44 @@ export default class CheckoutProcess {
     return convertedJSON;
   }
 
-    
-async checkout(formElement) {
-  const order = this.formDataToJSON(formElement);
+  async checkout(formElement) {
+    const order = this.formDataToJSON(formElement);
 
-  // Add order metadata
-  order.orderDate = new Date().toISOString();
-  order.items = this.packageItems(this.list);
-  order.orderTotal = this.orderTotal.toFixed(2);
-  order.shipping = this.shipping;
-  order.tax = this.tax.toFixed(2);
+    // Add order metadata
+    order.orderDate = new Date().toISOString();
+    order.items = this.packageItems(this.list);
+    order.orderTotal = this.orderTotal.toFixed(2);
+    order.shipping = this.shipping;
+    order.tax = this.tax.toFixed(2);
 
-  try {
-    // Try to submit the order
-    const response = await services.checkout(order);
-    console.log("Order success:", response);
+    try {
+      // ✅ ahora usamos this.services
+      const response = await this.services.checkout(order);
+      console.log("Order success:", response);
 
-    // Give user feedback
-    alert("✅ Order placed successfully!");
-    // (Optional) redirect to a success/confirmation page:
-    // window.location.href = "/checkout/success.html";
-  } catch (err) {
-    // We expect errors from ExternalServices to look like:
-    // { name: "servicesError", message: { error: "...", errors: [...] } }
-    if (err.name === "servicesError") {
-      console.error("Checkout failed:", err.message);
+      // Mensaje de éxito
+      alert("✅ Order placed successfully!");
 
-      // Flexible handling of different error shapes
-      if (err.message.error) {
-        alert(`❌ Checkout failed: ${err.message.error}`);
-      } else if (err.message.errors) {
-        alert(`❌ Checkout failed: ${err.message.errors.join(", ")}`);
-      } else {
-        alert("❌ Checkout failed: An unknown error occurred.");
-      }
-    } else {
-      // Unexpected error (network issues, JS error, etc.)
-      console.error("Unexpected error:", err);
-      alert("Unexpected error. Please try again.");
+      // Limpiar carrito
+      localStorage.removeItem(this.key);
+
+      // Redirigir a página de éxito
+      window.location.href = "/checkout/success.html";
+    } catch (err) {
+      if (err.name === "servicesError") {
+  console.error("Checkout failed:", err.message);
+
+  if (err.message.error) {
+    alertMessage(`❌ Checkout failed: ${err.message.error}`);
+  } else if (err.message.errors) {
+    alertMessage(`❌ Checkout failed: ${err.message.errors.join(", ")}`);
+  } else {
+    alertMessage("❌ Checkout failed: An unknown error occurred.");
+  }
+} else {
+  console.error("Unexpected error:", err);
+  alertMessage("Unexpected error. Please try again.");
+}
     }
   }
-}
-
-
 }
