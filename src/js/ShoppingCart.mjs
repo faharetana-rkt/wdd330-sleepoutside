@@ -16,8 +16,8 @@ function cartItemTemplate(item) {
     <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1<button class="remove" id="${item.Id}">X</button></p>
-  <p class="cart-card__price">$${item.FinalPrice}</p>
+  <p class="cart-card__quantity">qty: ${item.quantity || 1}<button class="remove" id="${item.Id}">X</button></p>
+  <p class="cart-card__price">$${item.totalPrice.toFixed(2) || item.ListPrice.toFixed(2)}</p>
 </li>`;
 
   return newItem;
@@ -39,7 +39,7 @@ export function getCartTotal(cartItems) {
 
   let total = 0;
   for (let i = 0; i < cart.length; i++) {
-    total += cart[i].FinalPrice;
+    total += cart[i].totalPrice || cart[i].FinalPrice;
   }
 
   if (totalHTML) {
@@ -57,7 +57,11 @@ export default class ShoppingCart {
 
   async init() {
     const cartItems = getLocalStorage(this.key) || [];
-    this.renderList(cartItems);
+    if(cartItems.length === 0) {
+      this.listElement.innerHTML = "Your cart is empty!"
+    } else {
+      this.renderList(cartItems);
+    }
   }
 
   renderList(cartItems) {

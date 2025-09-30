@@ -23,7 +23,17 @@ export default class ProductDetails {
   addProductToCart() {
     let cart = getLocalStorage("so-cart") || [];
 
-    cart.push(this.product);
+    const existingProduct = cart.find(item => item.Id === this.productId);
+    
+    if (existingProduct) {
+      existingProduct.quantity = (existingProduct.quantity || 1) + 1;
+      existingProduct.totalPrice = existingProduct.quantity * existingProduct.ListPrice;
+    }
+    else {
+      this.product.quantity = 1;
+      this.product.totalPrice = this.product.ListPrice;
+      cart.push(this.product);
+    }
 
     setLocalStorage("so-cart", cart);
     alertMessage("✅ Item added to cart!");
