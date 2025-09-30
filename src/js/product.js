@@ -2,6 +2,8 @@ import {
   getParam,
   loadHeaderFooter,
   renderNumberOfItemsBackpack,
+  renderDiscount,
+  checkDiscount,
 } from "./utils.mjs";
 
 import ExternalServices from "./ExternalServices.mjs";
@@ -21,6 +23,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Render product detail
   productDetails.init();
+
+  // Render Discount
+  renderDiscount(
+    checkDiscount(await dataSource.findProductById(productId)),
+    document.querySelector(".discount-container"),
+    "../images/discount.svg",
+  );
 
   // rendering the superscript number of items in backpack
   renderNumberOfItemsBackpack(

@@ -441,7 +441,6 @@ legend {
   font-size: 1rem;
 }
 
-
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
@@ -513,4 +512,10 @@ footer {
   position: absolute;
   right: 50px;
   top: 5px;
+}
+
+.product-detail .discount-container {
+  position: absolute;
+  right: 40%;
+  top: 25%;
 }

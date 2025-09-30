@@ -66,6 +66,7 @@ function productDetailsTemplate(product) {
     <p class="product-card__price">$${product.ListPrice}</p>
     <p class="product__color">${product.Colors[0].ColorName}</p>
     <p class="product__description">${product.DescriptionHtmlSimple}</p>
+    <div class="discount-container"></div>
     <div class="product-detail__add">
       <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
     </div>`;
